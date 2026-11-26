@@ -770,15 +770,15 @@
 
 
       <div
-        id="kids"
-        class="kids"
+        ="ks"
+        class="ks"
       ></div>
 
 
-      <div class="kid-tools">
+      <div class="k-tools">
 
         <button
-          id="selectAllKids"
+          ="selectAllKs"
           type="button"
           class="soft-button"
         >
@@ -787,7 +787,7 @@
 
 
         <button
-          id="clearKids"
+          ="clearKs"
           type="button"
           class="soft-button"
         >
@@ -819,7 +819,7 @@
           </div>
 
           <div
-            id="addPresetList"
+            ="addPresetList"
             class="preset-list"
           ></div>
 
@@ -833,7 +833,7 @@
           </div>
 
           <div
-            id="deductPresetList"
+            ="deductPresetList"
             class="preset-list"
           ></div>
 
@@ -867,7 +867,7 @@
           </label>
 
           <input
-            id="customReason"
+            ="customReason"
             class="text-input"
             type="text"
             maxlength="100"
@@ -887,7 +887,7 @@
           </label>
 
           <input
-            id="customPoints"
+            ="customPoints"
             class="number-input"
             type="number"
             inputmode="decimal"
@@ -901,7 +901,7 @@
 
 
       <button
-        id="addCustomItem"
+        ="addCustomItem"
         type="button"
         class="add-custom-button"
       >
@@ -910,7 +910,7 @@
 
 
       <div
-        id="customItems"
+        ="customItems"
         class="custom-items"
       ></div>
 
@@ -924,17 +924,17 @@
       </h2>
 
 
-      <div id="kidSummary"></div>
+      <div ="kSummary"></div>
 
 
       <div
-        id="itemSummary"
+        ="itemSummary"
         style="margin-top: 14px;"
       ></div>
 
 
       <div
-        id="netTotal"
+        ="netTotal"
         class="net-total"
       >
         本次每人淨變動：0 點
@@ -948,13 +948,13 @@
   <div class="bottom">
 
     <div
-      id="status"
+      ="status"
       class="status"
     ></div>
 
 
     <button
-      id="submitButton"
+      ="submitButton"
       type="button"
       class="submit-button"
       disabled
@@ -971,12 +971,12 @@
      * 必填設定
      * ===================================================== */
 
-    const LIFF_ID =
+    const LIFF_ =
       '2012803265-4Dk496nU';
 
 
     const GAS_API_URL =
-      'https://script.google.com/macros/s/AKfycbzL8LqnQ1jrwOhfKVpkOZn4k3aaxuneSOb5NuS1SShlGihmD8ofkxAoVKitrsfIXhGH/exec';
+      'https://script.google.com/macros/s/AKfycbwHj5fstS_gg2IrYUtOwshuRj8o069gaDnfO9x2abPl7Oez47kys2NCaIBdFosJIfz7/exec';
 
 
     /* =====================================================
@@ -985,7 +985,7 @@
 
     const state = {
       profile: null,
-      idToken: '',
+      Token: '',
 
       kids: [],
       totals: {},
