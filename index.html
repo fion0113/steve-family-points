@@ -6,78 +6,1168 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
   >
 
-  <title>Steve LIFF Test</title>
+  <title>Steve 家庭記分板</title>
 
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <!-- LINE LIFF SDK -->
+  <script
+    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+  ></script>
+
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+
+      --text: #25313a;
+      --muted: #75838e;
+      --line: #dce4e9;
+
+      --blue: #4776a8;
+      --blue-light: #eaf2f8;
+
+      --green: #218653;
+      --green-light: #e8f6ee;
+
+      --red: #c43b31;
+      --red-light: #fcecea;
+
+      --shadow:
+        0 10px 28px
+        rgba(35, 55, 72, 0.1);
+    }
+
+
+    /* =====================================================
+     * 基本樣式
+     * ===================================================== */
+
+    * {
+      box-sizing: border-box;
+
+      -webkit-tap-highlight-color:
+        transparent;
+    }
+
+
+    body {
+      margin: 0;
+
+      background:
+        var(--bg);
+
+      color:
+        var(--text);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans TC",
+        sans-serif;
+    }
+
+
+    button,
+    textarea {
+      font: inherit;
+    }
+
+
+    button {
+      touch-action:
+        manipulation;
+    }
+
+
+    /* =====================================================
+     * 主畫面
+     * ===================================================== */
+
+    .app {
+      width: 100%;
+      max-width: 540px;
+
+      min-height: 100vh;
+
+      margin:
+        0 auto;
+
+      padding:
+        18px
+        14px
+        calc(
+          125px +
+          env(safe-area-inset-bottom)
+        );
+    }
+
+
+    /* =====================================================
+     * Header
+     * ===================================================== */
+
+    .top {
+      margin:
+        2px 2px 16px;
+    }
+
+
+    .top h1 {
+      margin:
+        0;
+
+      color:
+        var(--blue);
+
+      font-size:
+        25px;
+
+      font-weight:
+        850;
+    }
+
+
+    .top p {
+      margin:
+        6px 0 0;
+
+      color:
+        var(--muted);
+
+      font-size:
+        14px;
+    }
+
+
+    /* =====================================================
+     * Card
+     * ===================================================== */
+
+    .card {
+      margin-bottom:
+        14px;
+
+      padding:
+        18px;
+
+      background:
+        var(--card);
+
+      border-radius:
+        20px;
+
+      box-shadow:
+        var(--shadow);
+    }
+
+
+    .card h2 {
+      margin:
+        0 0 7px;
+
+      font-size:
+        17px;
+
+      font-weight:
+        800;
+    }
+
+
+    .note {
+      margin:
+        0 0 14px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+    }
+
+
+    /* =====================================================
+     * 孩子選擇
+     * ===================================================== */
+
+    .kids {
+      display:
+    *   grid;
+
+      grid-template-colu*ns:
+        repeat(
+          3,
+ *        minmax(0, 1fr)
+        );
+*      gap:
+        10px;
+    }
+
+
+ *  .kid {
+      position:
+        r*lative;
+
+      min-height:
+       *84px;
+
+      padding:
+        12px*7px;
+
+      border:
+        2px so*id
+        var(--line);
+
+      bor*er-radius:
+        16px;
+
+      ba*kground:
+        #ffffff;
+
+      c*lor:
+        var(--text);
+
+      f*nt-size:
+        17px;
+
+      font*weight:
+        800;
+
+      cursor*
+        pointer;
+
+      transitio*:
+        transform 0.12s ease,
+  *     border-color 0.12s ease,
+    *   background-color 0.12s ease;
+  * }
+
+
+    .kid:active {
+      trans*orm:
+        scale(0.97);
+    }
+
+
+*   .kid small {
+      display:
+   *    block;
+
+      margin-top:
+    *   5px;
+
+      color:
+        var(*-muted);
+
+      font-size:
+       *13px;
+
+      font-weight:
+        *00;
+    }
+
+
+    .kid.active {
+    * border-color:
+        var(--blue)*
+
+      background:
+        var(--*lue-light);
+    }
+
+
+    .kid.activ*::after {
+      content:
+        "*";
+
+      position:
+        absolu*e;
+
+      top:
+        5px;
+
+     *right:
+        8px;
+
+      color:
+*       var(--blue);
+
+      font-we*ght:
+        900;
+    }
+
+
+    .kid*active small {
+      color:
+      * var(--blue);
+    }
+
+
+    .tools {
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        10px;
+
+      margin-top:
+        11px;
+    }
+
+
+    .soft {
+      min-height:
+        42px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        12px;
+
+      background:
+        #ffffff;
+
+      color:
+        var(--text);
+
+      font-weight:
+        750;
+
+      cursor:
+        pointer;
+    }
+
+
+    .soft:active {
+      transform:
+        scale(0.98);
+    }
+
+
+    /* =====================================================
+     * 分數
+     * ===================================================== */
+
+    .heads,
+    .scores {
+     *display:
+        grid;
+
+      grid*template-columns:
+        1fr 1fr;*
+      gap:
+        10px 12px;
+   *}
+
+
+    .heads {
+      margin-bott*m:
+        10px;
+
+      text-align*
+        center;
+
+      font-weigh*:
+        850;
+    }
+
+
+    .heads *iv:first-child {
+      color:
+    *   var(--green);
+    }
+
+
+    .head* div:last-child {
+      color:
+   *    var(--red);
+    }
+
+
+    .score*{
+      min-height:
+        54px;
+*      border:
+        2px solid
+  *     transparent;
+
+      border-ra*ius:
+        15px;
+
+      font-siz*:
+        20px;
+
+      font-weight*
+        900;
+
+      cursor:
+     *  pointer;
+
+      transition:
+    *   transform 0.12s ease,
+        b*rder-color 0.12s ease;
+    }
+
+
+   *.score:active {
+      transform:
+ *      scale(0.97);
+    }
+
+
+    .plus {
+      background:
+        var(--green-light);
+
+      color:
+        var(--green);
+    }
+
+
+    .minus {
+      background:
+        var(--red-light);
+
+      color:
+        var(--red);
+    }
+
+
+    .score.active.plus {
+      border-color:
+        var(--green);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(33, 134, 83, 0.12);
+    }
+
+
+    .score.active.minus {
+      border-color:
+        var(--red);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(196, 59, 49, 0.12);
+    }
+
+
+    /* =====================================================
+     * 事由
+     * ===================================================== */
+
+    .reasons {
+      display:
+ *      flex;
+
+      flex-wrap:
+    *   wrap;
+
+      gap:
+        9px;
+*   }
+
+
+    .reason {
+      min-hei*ht:
+        40px;
+
+      padding:
+*       8px 13px;
+
+      border:
+  *     1px solid
+        var(--line)*
+
+      border-radius:
+        999*x;
+
+      background:
+        #fff*ff;
+
+      color:
+        var(--te*t);
+
+      font-size:
+        14px*
+
+      font-weight:
+        700;
+*      cursor:
+        pointer;
+   *}
+
+
+    .reason.active {
+      bor*er-color:
+        var(--blue);
+
+  *   background:
+        var(--blue-*ight);
+
+      color:
+        var(-*blue);
+    }
+
+
+    textarea {
+      width:
+        100%;
+
+      min-height:
+        78px;
+
+      margin-top:
+        13px;
+
+      padding:
+        12px 14px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        14px;
+
+      resize:
+        vertical;
+
+      outline:
+        none;
+
+      color:
+        var(--text);
+
+      font: inherit;
+    }
+
+
+    textarea:focus {
+      border-color:
+        var(--blue);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(71, 118, 168, 0.12);
+    }
+
+
+    /* =====================================================
+     * 預覽
+     * ===================================================== */
+
+    .preview {
+      border-left:
+        5px solid
+        var(--blue);
+    }
+
+
+    .preview.plus-border {
+      border-left-color:
+        var(--green);
+    }
+
+
+    .preview.minus-border {
+      border-left-color:
+        var(--red);
+    }
+
+
+    .preview strong {
+      font-size:
+        18px;
+    }
+
+
+    .preview-line {
+      margin:
+        5px 0;
+
+      line-height:
+        1.6;
+    }
+
+
+    /* =====================================================
+     * 底部送出列
+     * ===================================================== */
+
+    .bottom {
+      position:
+ *      fixed;
+
+      z-index:
+     *  20;
+
+      left:
+        50%;
+
+ *    bottom:
+        0;
+
+      widt*:
+        100%;
+
+      max-width:
+*       540px;
+
+      padding:
+    *   12px
+        14px
+        calc(*          12px +
+          env(saf*-area-inset-bottom)
+        );
+
+  *   transform:
+        translateX(-*0%);
+
+      border-top:
+        1p* solid
+        var(--line);
+
+     *background:
+        rgba(
+        * 255,
+          255,
+          255,
+          0.97
+        );
+
+      backdrop-filter:
+        blur(12px);
+    }
+
+
+    .submit {
+      width:
+        100%;
+
+      min-height:
+        54px;
+
+      border:
+        0;
+
+      border-radius:
+        16px;
+
+      background:
+        var(--blue);
+
+      color:
+        #ffffff;
+
+      font-size:
+        18px;
+
+      font-weight:
+        850;
+
+      cursor:
+        pointer;
+    }
+
+
+    .submit:disabled {
+      background:
+        #b8c2ca;
+
+      cursor:
+        not-allowed;
+    }
+
+
+    /* =====================================================
+     * 狀態訊息
+     * ===================================================== */
+
+    .status {
+      display:
+        none;
+
+      margin-bottom:
+        9px;
+
+      padding:
+        10px 12px;
+
+      border-radius:
+        12px;
+
+      font-size:
+        14px;
+
+      line-height:
+        1.5;
+    }
+
+
+    .status.show {
+      display:
+        block;
+    }
+
+
+    .status.ok {
+      background:
+        var(--green-light);
+
+      color:
+        #17643e;
+    }
+
+
+    .status.err {
+      background:
+        var(--red-light);
+
+      color:
+        #8f2b24;
+    }
+
+
+    /* =====================================================
+     * Loading
+     * ===================================================== */
+
+    .loading {
+      display:
+ *      flex;
+
+      position:
+     *  fixed;
+
+      z-index:
+        9*;
+
+      inset:
+        0;
+
+      *lign-items:
+        center;
+
+     *justify-content:
+        center;
+
+*     padding:
+        24px;
+
+     *background:
+        rgba(
+        * 244,
+          246,
+          248*
+          0.96
+        );
+    }
+
+*    .loading.hide {
+      display:*        none;
+    }
+
+
+    .loadbox*{
+      width:
+        100%;
+
+    * max-width:
+        310px;
+
+      *adding:
+        25px;
+
+      borde*-radius:
+        18px;
+
+      back*round:
+        #ffffff;
+
+      box*shadow:
+        var(--shadow);
+
+  *   text-align:
+        center;
+   *}
+
+
+    .spin {
+      width:
+     *  38px;
+
+      height:
+        38p*;
+
+      margin:
+        0 auto 13*x;
+
+      border:
+        4px soli*
+        #dfe7ed;
+
+      border-to*-color:
+        var(--blue);
+
+    * border-radius:
+        50%;
+
+    * animation:
+        spin 0.8s line*r
+        infinite;
+    }
+
+
+    @k*yframes spin {
+      to {
+        *ransform:
+          rotate(360deg)*
+      }
+    }
+
+
+    @media (
+    * max-width: 370px
+    ) {
+      .a*p {
+        padding-left:
+        * 10px;
+
+        padding-right:
+   *      10px;
+      }
+
+
+      .card *
+        padding:
+          15px;
+*     }
+
+
+      .kid {
+        font*size:
+          15px;
+      }
+    *
+  </style>
 </head>
+
 
 <body>
 
-  <h1>⭐ Steve LIFF Test</h1>
+  <!*- ================================*==================
+       Loading
+*      ============================*====================== -->
 
-  <p id="status">
-    Starting...
-  </p>
+  <div*    id="loading"
+    class="loadin*"
+  >
+    <div class="loadbox">
 
-  <pre id="debug"></pre>
+ *    <div class="spin"></div>
+
+    * <div id="loadingText">
+        正在*啟 Steve…
+      </div>
+
+    </div>
+* </div>
+
+
+  <!-- =================*=================================
+*      主畫面
+       =================*================================= *->
+
+  <main class="app">
+
+    <hea*er class="top">
+
+      <h1>
+      * ⭐ Steve 家庭記分板
+      </h1>
+
+      *p id="hello">
+        正在取得 LINE 使用*資料…
+      </p>
+
+    </header>
+
+
+  * <!-- ============================*====================
+         1. 孩*
+         ========================*======================== -->
+
+    *section class="card">
+
+      <h2>
+*       1. 選擇記分對象
+      </h2>
+
+    * <p class="note">
+        可單選、複選或全*。
+      </p>
+
+      <div
+        i*="kids"
+        class="kids"
+     *></div>
+
+
+      <div class="tools"*
+
+        <button
+          id="al*"
+          type="button"
+          class="soft"
+        >
+          ✅ 全選
+        </button>
+
+
+        <button
+          id="clear"
+          type="button"
+          class="soft"
+        >
+          清除
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         2. 分數
+         ================================================= -->
+
+    <section class="card">
+
+      <h2>
+        2. 選擇分數
+      </h2>
+
+
+      <div class="heads">
+
+        <div>
+          🟢 加分
+        </div>
+
+        <div>
+          🔴 減分
+        </div>
+
+      </div>
+
+
+      <div
+        id="scores"
+        class="scores"
+      ></div>
+
+    </section>
+
+
+    <!-- =================================================
+         3. 事由
+         ================================================= -->
+
+    <section class="card">
+
+      <h2>
+        3. 選擇或輸入事由
+      </h2>
+
+      <p class="note">
+        會優先排列與加／減分相符的常用事由。
+      </p>
+
+
+      <div
+        id="reasons"
+        class="reasons"
+      ></div>
+
+
+      <textarea
+        id="custom"
+        maxlength="100"
+        placeholder="其他事由，最多 100 字"
+      ></textarea>
+
+    </section>
+
+
+    <!-- =================================================
+         預覽
+         ================================================= -->
+
+    <section
+      id="preview"
+      class="card preview"
+    >
+
+      <h2>
+        本次操作
+      </h2>
+
+
+      <div id="previewText">
+        尚未完成選擇
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ===================================================
+       Bottom submit bar
+       =================================================== -->
+
+  <div class="bottom">
+
+    <div
+      id="status"
+      class="status"
+    ></div>
+
+
+    <button
+      id="submit"
+      type="button"
+      class="submit"
+      disabled
+    >
+      請完成選擇
+    </button>
+
+  </div>
+
 
   <script>
 
-    // ★ 改成你真正的 LIFF ID
-    const LIFF_ID = '2012803265-4Dk496nU';
+    /* =====================================================
+     * 1. 必填設定
+     *
+     * 請改成你的實際值。
+     * ===================================================== */
+
+    const LIFF_ID =
+      '2012803265-4Dk496nU';
 
 
-    const status =
-      document.getElementById('status');
+    const GAS_API_URL =
+      'https://script.google.com/macros/s/AKfycbzL8LqnQ1jrwOhfKVpkOZn4k3aaxuneSOb5NuS1SShlGihmD8ofkxAoVKitrsfIXhGH/exec';
 
-    const debug =
-      document.getElementById('debug');
+
+    /* =====================================================
+     * 2. App State
+     * ===================================================== */
+
+    const state = {
+
+      profile:
+        null,
+
+      idToken:
+        '',
+
+      kids:
+        [],
+
+      totals:
+        {},
+
+      addReasons:
+        [],
+
+      deductReasons:
+        [],
+
+      selectedKids:
+        [],
+
+      points:
+        0,
+
+      reason:
+        '',
+
+      submitting:
+        false
+    };
+
+
+    const SCORE_VALUES = [
+      1,
+      2,
+      3,
+      5
+    ];
+
+
+    /* =====================================================
+     * 3. DOM
+     * ===================================================== */
+
+    const $ =
+      function (
+        id
+      ) {
+
+        return document
+          .getElementById(
+            id
+          );
+
+      };
+
+
+    /* =====================================================
+     * 4. 啟動
+     * ===================================================== */
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      start
+    );
 
 
     async function start() {
 
-      debug.textContent =
-        'LIFF_ID = ' + LIFF_ID +
-        '\nURL = ' + location.href +
-        '\nSDK = ' +
-        (
-          typeof liff !== 'undefined'
-            ? 'loaded'
-            : 'missing'
+      try {
+
+        validateFrontendConfig();
+
+
+        setLoadingText(
+          '正在初始化 LIFF…'
         );
 
 
-      if (typeof liff === 'undefined') {
-
-        status.textContent =
-          '❌ LIFF SDK 載入失敗';
-
-        return;
-      }
-
-
-      status.textContent =
-        '1. LIFF SDK 已載入';
-
-
-      try {
-
         await liff.init({
-          liffId: LIFF_ID
+          liffId:
+            LIFF_ID
         });
 
 
-        status.textContent =
-          '2. ✅ liff.init() 成功';
-
-
-        if (!liff.isLoggedIn()) {
-
-          status.textContent =
-            '3. 正在登入 LINE...';
+        if (
+          !liff.isLoggedIn()
+        ) {
 
           liff.login();
 
@@ -85,36 +1175,1374 @@
         }
 
 
-        const profile =
+        setLoadingText(
+          '正在取得 LINE 使用者資料…'
+        );
+
+
+        state.idToken =
+          liff.getIDToken() ||
+          '';
+
+
+        state.profile =
           await liff.getProfile();
 
 
-        status.textContent =
-          '✅ LIFF 完全成功！您好：' +
-          profile.displayName;
+        $('hello')
+          .textContent =
+            state.profile
+              .displayName +
+            '，請選擇孩子、分數與事由';
+
+
+        setLoadingText(
+          '正在讀取目前積分…'
+        );
+
+
+        const data =
+          await jsonp(
+            'initial',
+            {}
+          );
+
+
+        if (
+          !data.success
+        ) {
+
+          throw new Error(
+            data.error ||
+            '無法讀取初始資料'
+          );
+
+        }
+
+
+        state.kids =
+          data.kids ||
+          [];
+
+
+        state.totals =
+          data.totals ||
+          {};
+
+
+        state.addReasons =
+          data.addReasons ||
+          [];
+
+
+        state.deductReasons =
+          data.deductReasons ||
+          [];
+
+
+        render();
+
+
+        hideLoading();
 
 
       } catch (error) {
 
-        status.textContent =
-          '❌ LIFF 初始化失敗';
+        hideLoading();
 
 
-        debug.textContent +=
-          '\n\nERROR CODE = ' +
-          (error.code || '(none)') +
+        showStatus(
+          '啟動失敗：' +
+          getErrorMessage(
+            error
+          ),
+          'err'
+        );
 
-          '\nERROR MESSAGE = ' +
-          (
-            error.message ||
-            String(error)
-          );
       }
 
     }
 
 
-    start();
+    /* =====================================================
+     * 5. 設定檢查
+     * ===================================================== */
+
+    function validateFrontendConfig() {
+
+      if (
+        !LIFF_ID ||
+        LIFF_ID ===
+          'YOUR_LIFF_ID'
+      ) {
+
+        throw new Error(
+          '請先在 index.html 填入正確的 LIFF_ID。'
+        );
+
+      }
+
+
+      if (
+        !GAS_API_URL ||
+        GAS_API_URL ===
+          'YOUR_GAS_EXEC_URL'
+      ) {
+
+        throw new Error(
+          '請先在 index.html 填入正確的 GAS_API_URL。'
+        );
+
+      }
+
+
+      if (
+        !GAS_API_URL.endsWith(
+          '/exec'
+        )
+      ) {
+
+        throw new Error(
+          'GAS_API_URL 必須使用正式 /exec 網址。'
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+     * 6. Render
+     * ===================================================== */
+
+    function render() {
+
+      renderKids();
+
+      renderScores();
+
+      renderReasons();
+
+      renderPreview();
+
+    }
+
+
+    /* =====================================================
+     * 7. 孩子
+     * ===================================================== */
+
+    function renderKids() {
+
+      const container =
+        $('kids');
+
+
+      container.innerHTML =
+        '';
+
+
+      state.kids.forEach(
+        function (
+          kidName
+        ) {
+
+          const button =
+            document.createElement(
+              'button'
+            );
+
+
+          button.type =
+            'button';
+
+
+          const selected =
+            state.selectedKids
+              .indexOf(
+                kidName
+              ) !== -1;
+
+
+          button.className =
+            'kid' +
+            (
+              selected
+                ? ' active'
+                : ''
+            );
+
+
+          button.innerHTML =
+            escapeHtml(
+              kidName
+            ) +
+
+            '<small>' +
+
+            formatNumber(
+              state.totals[
+                kidName
+              ] || 0
+            ) +
+
+            ' 分</small>';
+
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              toggleKid(
+                kidName
+              );
+
+            }
+          );
+
+
+          container.appendChild(
+            button
+          );
+
+        }
+      );
+
+    }
+
+
+    function toggleKid(
+      kidName
+    ) {
+
+      const index =
+        state.selectedKids
+          .indexOf(
+            kidName
+          );
+
+
+      if (
+        index === -1
+      ) {
+
+        state.selectedKids
+          .push(
+            kidName
+          );
+
+      } else {
+
+        state.selectedKids
+          .splice(
+            index,
+            1
+          );
+
+      }
+
+
+      /*
+       * 維持 KIDS 順序
+       */
+
+      state.selectedKids.sort(
+        function (
+          a,
+          b
+        ) {
+
+          return (
+            state.kids
+              .indexOf(a) -
+
+            state.kids
+              .indexOf(b)
+          );
+
+        }
+      );
+
+
+      renderKids();
+
+      renderPreview();
+
+    }
+
+
+    /* =====================================================
+     * 8. 分數
+     * ===================================================== */
+
+    function renderScores() {
+
+      const container =
+        $('scores');
+
+
+      container.innerHTML =
+        '';
+
+
+      SCORE_VALUES.forEach(
+        function (
+          value
+        ) {
+
+          appendScoreButton(
+            value,
+            container
+          );
+
+
+          appendScoreButton(
+            -value,
+            container
+          );
+
+        }
+      );
+
+    }
+
+
+    function appendScoreButton(
+      value,
+      container
+    ) {
+
+      const button =
+        document.createElement(
+          'button'
+        );
+
+
+      button.type =
+        'button';
+
+
+      button.className =
+        'score ' +
+
+        (
+          value > 0
+            ? 'plus'
+            : 'minus'
+        ) +
+
+        (
+          state.points ===
+          value
+
+            ? ' active'
+
+            : ''
+        );
+
+
+      button.textContent =
+        value > 0
+          ? '+' +
+            value
+
+          : String(
+              value
+            );
+
+
+      button.addEventListener(
+        'click',
+        function () {
+
+          state.points =
+            value;
+
+
+          renderScores();
+
+          renderReasons();
+
+          renderPreview();
+
+        }
+      );
+
+
+      container.appendChild(
+        button
+      );
+
+    }
+
+
+    /* =====================================================
+     * 9. 事由
+     * ===================================================== */
+
+    function renderReasons() {
+
+      const container =
+        $('reasons');
+
+
+      container.innerHTML =
+        '';
+
+
+      /*
+       * 若選減分，減分原因放前面。
+       * 若選加分，加分原因放前面。
+       */
+
+      const primaryReasons =
+        state.points < 0
+          ? state.deductReasons
+          : state.addReasons;
+
+
+      const secondaryReasons =
+        state.points < 0
+          ? state.addReasons
+          : state.deductReasons;
+
+
+      const allReasons = [
+        ...primaryReasons,
+        ...secondaryReasons
+      ];
+
+
+      const usedLabels =
+        new Set();
+
+
+      allReasons.forEach(
+        function (
+          item
+        ) {
+
+          if (
+            usedLabels.has(
+              item.label
+            )
+          ) {
+
+            return;
+
+          }
+
+
+          usedLabels.add(
+            item.label
+          );
+
+
+          const button =
+            document.createElement(
+              'button'
+            );
+
+
+          button.type =
+            'button';
+
+
+          button.className =
+            'reason' +
+
+            (
+              state.reason ===
+              item.label
+
+                ? ' active'
+
+                : ''
+            );
+
+
+          button.textContent =
+            item.label;
+
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              state.reason =
+                item.label;
+
+
+              $('custom')
+                .value =
+                '';
+
+
+              renderReasons();
+
+              renderPreview();
+
+            }
+          );
+
+
+          container.appendChild(
+            button
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+     * 10. 全選與清除
+     * ===================================================== */
+
+    $('all').addEventListener(
+      'click',
+      function () {
+
+        state.selectedKids =
+          state.kids.slice();
+
+
+        renderKids();
+
+        renderPreview();
+
+      }
+    );
+
+
+    $('clear').addEventListener(
+      'click',
+      function () {
+
+        state.selectedKids =
+          [];
+
+
+        renderKids();
+
+        renderPreview();
+
+      }
+    );
+
+
+    /* =====================================================
+     * 11. 自訂事由
+     * ===================================================== */
+
+    $('custom').addEventListener(
+      'input',
+      function (
+        event
+      ) {
+
+        state.reason =
+          event.target
+            .value
+            .trim();
+
+
+        renderReasons();
+
+        renderPreview();
+
+      }
+    );
+
+
+    /* =====================================================
+     * 12. 預覽
+     * ===================================================== */
+
+    function renderPreview() {
+
+      const valid =
+        validateSelection();
+
+
+      const preview =
+        $('preview');
+
+
+      preview.className =
+        'card preview' +
+
+        (
+          state.points > 0
+
+            ? ' plus-border'
+
+            : state.points < 0
+
+              ? ' minus-border'
+
+              : ''
+        );
+
+
+      const kidsText =
+        state.selectedKids.length
+          ? state.selectedKids
+              .join('、')
+
+          : '尚未選擇';
+
+
+      const pointsText =
+        state.points
+
+          ? (
+              state.points > 0
+                ? '+'
+                : ''
+            ) +
+            formatNumber(
+              state.points
+            )
+
+          : '尚未選擇';
+
+
+      const reasonText =
+        state.reason ||
+        '尚未選擇';
+
+
+      $('previewText')
+        .innerHTML =
+          '<div class="preview-line">' +
+
+          '<strong>' +
+          escapeHtml(
+            kidsText
+          ) +
+          '</strong>' +
+
+          '</div>' +
+
+          '<div class="preview-line">' +
+
+          '每人：' +
+          escapeHtml(
+            pointsText
+          ) +
+          ' 分' +
+
+          '</div>' +
+
+          '<div class="preview-line">' +
+
+          '事由：' +
+          escapeHtml(
+            reasonText
+          ) +
+
+          '</div>';
+
+
+      $('submit')
+        .disabled =
+          !valid ||
+          state.submitting;
+
+
+      if (
+        state.submitting
+      ) {
+
+        $('submit')
+          .textContent =
+            '正在送出…';
+
+      } else if (
+        valid
+      ) {
+
+        $('submit')
+          .textContent =
+            '確認送出 ' +
+            pointsText +
+            ' 分';
+
+      } else {
+
+        $('submit')
+          .textContent =
+            '請完成選擇';
+
+      }
+
+    }
+
+
+    function validateSelection() {
+
+      return Boolean(
+
+        state.selectedKids
+          .length > 0 &&
+
+        Number.isFinite(
+          state.points
+        ) &&
+
+        state.points !== 0 &&
+
+        String(
+          state.reason ||
+          ''
+        )
+          .trim()
+
+      );
+
+    }
+
+
+    /* =====================================================
+     * 13. 送出
+     * ===================================================== */
+
+    $('submit').addEventListener(
+      'click',
+      submitScore
+    );
+
+
+    async function submitScore() {
+
+      if (
+        state.submitting ||
+        !validateSelection()
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        !state.idToken
+      ) {
+
+        showStatus(
+          '沒有取得 LINE ID Token，請從 LINE 重新開啟記分板。',
+          'err'
+        );
+
+        return;
+
+      }
+
+
+      state.submitting =
+        true;
+
+
+      clearStatus();
+
+      renderPreview();
+
+
+      const requestId =
+        createRequestId();
+
+
+      const body =
+        new URLSearchParams({
+
+          action:
+            'submitLiffScore',
+
+          requestId:
+            requestId,
+
+          idToken:
+            state.idToken,
+
+          kids:
+            JSON.stringify(
+              state.selectedKids
+            ),
+
+          points:
+            String(
+              state.points
+            ),
+
+          reason:
+            state.reason
+        });
+
+
+      try {
+
+        /*
+         * GAS ContentService 會重新導向至
+         * script.googleusercontent.com。
+         *
+         * 不直接讀取 POST 回應，
+         * 寫入結果改用 requestId 查詢。
+         */
+
+        await fetch(
+          GAS_API_URL,
+          {
+            method:
+              'POST',
+
+            mode:
+              'no-cors',
+
+            headers: {
+              'Content-Type':
+                'application/x-www-form-urlencoded;charset=UTF-8'
+            },
+
+            body:
+              body.toString()
+          }
+        );
+
+
+        const result =
+          await pollRequestResult(
+            requestId,
+            12,
+            700
+          );
+
+
+        if (
+          !result.success
+        ) {
+
+          throw new Error(
+            result.error ||
+            '寫入失敗'
+          );
+
+        }
+
+
+        state.totals =
+          result.totals ||
+          state.totals;
+
+
+        const resultText =
+          (
+            result.results ||
+            []
+          )
+            .map(
+              function (
+                item
+              ) {
+
+                return (
+
+                  item.kid +
+                  ' ' +
+
+                  (
+                    item.delta > 0
+                      ? '+'
+                      : ''
+                  ) +
+
+                  formatNumber(
+                    item.delta
+                  ) +
+
+                  '，目前 ' +
+
+                  formatNumber(
+                    item.total
+                  ) +
+
+                  ' 分'
+
+                );
+
+              }
+            )
+            .join(
+              '；'
+            );
+
+
+        showStatus(
+          '✅ 已完成：' +
+          resultText,
+          'ok'
+        );
+
+
+        /*
+         * 保留孩子選取，
+         * 方便連續記分。
+         */
+
+        state.points =
+          0;
+
+
+        state.reason =
+          '';
+
+
+        $('custom')
+          .value =
+          '';
+
+
+        render();
+
+
+        window.scrollTo({
+          top:
+            0,
+
+          behavior:
+            'smooth'
+        });
+
+
+      } catch (error) {
+
+        showStatus(
+          '送出失敗：' +
+          getErrorMessage(
+            error
+          ),
+          'err'
+        );
+
+
+      } finally {
+
+        state.submitting =
+          false;
+
+
+        renderPreview();
+
+      }
+
+    }
+
+
+    /* =====================================================
+     * 14. 輪詢結果
+     * ===================================================== */
+
+    async function pollRequestResult(
+      requestId,
+      maxTimes,
+      delay
+    ) {
+
+      for (
+        let i = 0;
+        i < maxTimes;
+        i++
+      ) {
+
+        await wait(
+          delay
+        );
+
+
+        const result =
+          await jsonp(
+            'status',
+            {
+              requestId:
+                requestId
+            }
+          );
+
+
+        if (
+          result.status ===
+            'done' ||
+
+          result.status ===
+            'error'
+        ) {
+
+          return result;
+
+        }
+
+      }
+
+
+      throw new Error(
+        '後端逾時，請查看試算表確認是否已寫入。'
+      );
+
+    }
+
+
+    /* =====================================================
+     * 15. JSONP
+     * ===================================================== */
+
+    function jsonp(
+      action,
+      params
+    ) {
+
+      return new Promise(
+        function (
+          resolve,
+          reject
+        ) {
+
+          const callbackName =
+            'steve_' +
+            Date.now() +
+            '_' +
+            Math.random()
+              .toString(36)
+              .slice(2);
+
+
+          const script =
+            document.createElement(
+              'script'
+            );
+
+
+          const query =
+            new URLSearchParams({
+              action:
+                action,
+
+              callback:
+                callbackName,
+
+              ...params
+            });
+
+
+          const timer =
+            setTimeout(
+              function () {
+
+                finish(
+                  new Error(
+                    '讀取 GAS Backend 逾時'
+                  )
+                );
+
+              },
+
+              12000
+            );
+
+
+          function finish(
+            error,
+            data
+          ) {
+
+            clearTimeout(
+              timer
+            );
+
+
+            delete window[
+              callbackName
+            ];
+
+
+            script.remove();
+
+
+            if (error) {
+
+              reject(
+                error
+              );
+
+            } else {
+
+              resolve(
+                data
+              );
+
+            }
+
+          }
+
+
+          window[
+            callbackName
+          ] = function (
+            data
+          ) {
+
+            finish(
+              null,
+              data
+            );
+
+          };
+
+
+          script.onerror =
+            function () {
+
+              finish(
+                new Error(
+                  '無法連線 GAS Backend'
+                )
+              );
+
+            };
+
+
+          script.src =
+            GAS_API_URL +
+            '?' +
+            query.toString();
+
+
+          document.body
+            .appendChild(
+              script
+            );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+     * 16. Request ID
+     * ===================================================== */
+
+    function createRequestId() {
+
+      const bytes =
+        new Uint8Array(
+          24
+        );
+
+
+      crypto.getRandomValues(
+        bytes
+      );
+
+
+      return Array
+        .from(
+          bytes,
+
+          function (
+            value
+          ) {
+
+            return value
+              .toString(16)
+              .padStart(
+                2,
+                '0'
+              );
+
+          }
+        )
+        .join('');
+
+    }
+
+
+    /* =====================================================
+     * 17. 共用工具
+     * ===================================================== */
+
+    function wait(
+      milliseconds
+    ) {
+
+      return new Promise(
+        function (
+          resolve
+        ) {
+
+          setTimeout(
+            resolve,
+            milliseconds
+          );
+
+        }
+      );
+
+    }
+
+
+    function setLoadingText(
+      text
+    ) {
+
+      $('loadingText')
+        .textContent =
+          text;
+
+    }
+
+
+    function hideLoading() {
+
+      $('loading')
+        .classList
+        .add(
+          'hide'
+        );
+
+    }
+
+
+    function showStatus(
+      text,
+      type
+    ) {
+
+      $('status')
+        .textContent =
+          text;
+
+
+      $('status')
+        .className =
+          'status show ' +
+          type;
+
+    }
+
+
+    function clearStatus() {
+
+      $('status')
+        .className =
+          'status';
+
+
+      $('status')
+        .textContent =
+          '';
+
+    }
+
+
+    function getErrorMessage(
+      error
+    ) {
+
+      if (
+        error &&
+        error.message
+      ) {
+
+        return error.message;
+
+      }
+
+
+      return String(
+        error
+      );
+
+    }
+
+
+    function formatNumber(
+      value
+    ) {
+
+      const number =
+        Number(
+          value
+        );
+
+
+      if (
+        !Number.isFinite(
+          number
+        )
+      ) {
+
+        return '0';
+
+      }
+
+
+      if (
+        Number.isInteger(
+          number
+        )
+      ) {
+
+        return String(
+          number
+        );
+
+      }
+
+
+      return number
+        .toFixed(2)
+        .replace(
+          /0+$/,
+          ''
+        )
+        .replace(
+          /\.$/,
+          ''
+        );
+
+    }
+
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value
+      )
+        .replace(
+          /&/g,
+          '&amp;'
+        )
+        .replace(
+          /</g,
+          '&lt;'
+        )
+        .replace(
+          />/g,
+          '&gt;'
+        )
+        .replace(
+          /"/g,
+          '&quot;'
+        )
+        .replace(
+          /'/g,
+          '&#039;'
+        );
+
+    }
 
   </script>
 
