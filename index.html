@@ -169,7 +169,15 @@ async function start() {
     $('hello').textContent = profile.displayName + '，請選擇孩子與本次事項';
 
     setLoading('正在讀取目前積分…');
-    const data = await jsonp('initial', {});
+    const data = 
+      await jsonp(
+        'initial', 
+        {
+          idToken:
+            state.idToken
+        }
+      );
+
     if (!data.success) throw new Error(data.error || '無法讀取初始資料');
 
     state.kids = data.kids || [];
