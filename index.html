@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Steve LIFF Test</title>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+
+<body>
+
+  <h1>⭐ Steve LIFF Test</h1>
+
+  <p id="status">
+    Starting...
+  </p>
+
+  <pre id="debug"></pre>
+
+  <script>
+
+    // ★ 改成你真正的 LIFF ID
+    const LIFF_ID = '2012803265';
+
+
+    const status =
+      document.getElementById('status');
+
+    const debug =
+      document.getElementById('debug');
+
+
+    async function start() {
+
+      debug.textContent =
+        'LIFF_ID = ' + LIFF_ID +
+        '\nURL = ' + location.href +
+        '\nSDK = ' +
+        (
+          typeof liff !== 'undefined'
+            ? 'loaded'
+            : 'missing'
+        );
+
+
+      if (typeof liff === 'undefined') {
+
+        status.textContent =
+          '❌ LIFF SDK 載入失敗';
+
+        return;
+      }
+
+
+      status.textContent =
+        '1. LIFF SDK 已載入';
+
+
+      try {
+
+        await liff.init({
+          liffId: LIFF_ID
+        });
+
+
+        status.textContent =
+          '2. ✅ liff.init() 成功';
+
+
+        if (!liff.isLoggedIn()) {
+
+          status.textContent =
+            '3. 正在登入 LINE...';
+
+          liff.login();
+
+          return;
+        }
+
+
+        const profile =
+          await liff.getProfile();
+
+
+        status.textContent =
+          '✅ LIFF 完全成功！您好：' +
+          profile.displayName;
+
+
+      } catch (error) {
+
+        status.textContent =
+          '❌ LIFF 初始化失敗';
+
+
+        debug.textContent +=
+          '\n\nERROR CODE = ' +
+          (error.code || '(none)') +
+
+          '\nERROR MESSAGE = ' +
+          (
+            error.message ||
+            String(error)
+          );
+      }
+
+    }
+
+
+    start();
+
+  </script>
+
+</body>
+
+</html>
